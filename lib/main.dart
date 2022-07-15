@@ -1,16 +1,27 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/CustomAttribute.dart';
-import 'package:hearthstoneapp/OutlinedText.dart';
-import 'package:hearthstoneapp/Palette.dart';
-import 'package:hearthstoneapp/LikeCounter.dart';
+import 'package:hearthstoneapp/utils/constants.dart';
+import 'package:hearthstoneapp/utils/palette.dart';
+import 'package:hearthstoneapp/hearthstone_card.dart';
+import 'package:hearthstoneapp/widgets/card_property.dart';
+import 'package:hearthstoneapp/widgets/outlined_text.dart';
+import 'package:hearthstoneapp/widgets/like_counter.dart';
 
-void main() => runApp(const HearthStoneApp());
-
+void main() => runApp(HearthStoneApp());
 
 class HearthStoneApp extends StatelessWidget {
-  const HearthStoneApp({Key? key}) : super(key: key);
+  HearthStoneApp({Key? key}) : super(key: key);
+
+  final HearthstoneCard card = HearthstoneCard(
+    "Ysera",
+    "Minion",
+    "Neutral",
+    "Legendary",
+    9,
+    4,
+    12,
+    'At the end of your turn, add a Dream Card to your hand.',
+    'assets/images/EX1_572.png',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -27,90 +38,82 @@ class HearthStoneApp extends StatelessWidget {
             child: ListView(
               children: <Widget>[
                 Container(
-                  margin: const EdgeInsets.only(top: 20.0),
+                  margin: Constants.cardNameContainerMargin,
+                  height: Constants.cardNameContainerHeight,
                   child: Stack(
-                    children: const [
-                      Center(
-                        child: OutlinedText(text: 'Ysera')
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 40,
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      const Positioned(
+                        top: Constants.likeCounterTopDistance,
+                        right: Constants.likeCounterRightDistance,
                         child: LikeCounter(),
+                      ),
+                      OutlinedText(
+                        text: card.name,
                       ),
                     ],
                   ),
                 ),
-                const Image(
+                Image(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/images/EX1_572.png'),
+                  image: card.image,
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 40),
+                  margin: Constants.propertyContainerMargin,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(
+                        Constants.propertyContainerRadius),
                     color: Palette.primaryColor,
-                    boxShadow: const [
-                      BoxShadow(
-                        offset: Offset(3, 3),
-                        color: Color(0x332222222),
-                        blurRadius: 3
-                      ),
-                      BoxShadow(
-                          color: Color(0x33ffffff),
-                          offset: Offset(-3, -3),
-                          blurRadius: 3
-                      )
-                    ]
+                    boxShadow: Constants.propertyContainerShadow,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: Constants.propertyContainerPadding,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            CustomAttribute(
-                              text: 'Type:',
+                            CardProperty(
+                              text: Constants.cardTypeLabel,
                             ),
-                            CustomAttribute(
-                              text: 'Faction:',
+                            CardProperty(
+                              text: Constants.cardFactionLabel,
                             ),
-                            CustomAttribute(
-                              text: 'Rarity:',
+                            CardProperty(
+                              text: Constants.cardRarityLabel,
                             ),
-                            CustomAttribute(
-                              text: 'Cost:',
+                            CardProperty(
+                              text: Constants.cardCostLabel,
                             ),
-                            CustomAttribute(
-                              text: 'Attack:',
+                            CardProperty(
+                              text: Constants.cardAttackLabel,
                             ),
-                            CustomAttribute(
-                              text: 'Health:',
+                            CardProperty(
+                              text: Constants.cardHeathLabel,
                             ),
                           ],
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: const [
-                            CustomAttribute(
-                              text: 'Minion',
+                          children: [
+                            CardProperty(
+                              text: card.type,
                             ),
-                            CustomAttribute(
-                              text: 'Neutral',
+                            CardProperty(
+                              text: card.faction,
                             ),
-                            CustomAttribute(
-                              text: 'Legendary',
+                            CardProperty(
+                              text: card.rarity,
                             ),
-                            CustomAttribute(
-                              text: '9',
+                            CardProperty(
+                              text: card.cost.toString(),
                             ),
-                            CustomAttribute(
-                              text: '4',
+                            CardProperty(
+                              text: card.attack.toString(),
                             ),
-                            CustomAttribute(
-                              text: '12',
+                            CardProperty(
+                              text: card.health.toString(),
                             ),
                           ],
                         ),
@@ -119,22 +122,22 @@ class HearthStoneApp extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(30.0),
+                  padding: Constants.abilityLabelPadding,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Ability',
+                    children: [
+                      const Text(
+                        Constants.cardAbilityLabel,
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: Constants.abilityLabelFontSize,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
                       ),
                       Text(
-                        'At the end of your turn, add a Dream Card to your hand.',
-                        style: TextStyle(
-                          fontSize: 20,
+                        card.ability,
+                        style: const TextStyle(
+                          fontSize: Constants.abilityFontSize,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
