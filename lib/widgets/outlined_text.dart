@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hearthstoneapp/utils/constants.dart';
 
 class OutlinedText extends StatelessWidget {
   final double fontSize;
@@ -11,7 +12,7 @@ class OutlinedText extends StatelessWidget {
   const OutlinedText({
     Key? key,
     required this.text,
-    this.fontSize = 50,
+    this.fontSize = Constants.bigFontSize,
     this.fill = Colors.white,
     this.outlineColor = Colors.black87,
     this.fontFamily = "BigshotOne",
@@ -20,28 +21,34 @@ class OutlinedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Text(
-          text,
-          style: TextStyle(
-            fontSize: fontSize,
-            fontFamily: fontFamily,
-            foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = strokeWidth
-              ..color = outlineColor,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * Constants.cardNameWidthFactor,
+      child: Stack(
+        alignment: AlignmentDirectional.center,
+        children: <Widget>[
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSize,
+              fontFamily: fontFamily,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = strokeWidth
+                ..color = outlineColor,
+            ),
+            textAlign: TextAlign.center,
           ),
-        ),
-        Text(
-          text,
-          style: TextStyle(
-            fontSize: fontSize,
-            fontFamily: fontFamily,
-            color: fill,
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSize,
+              fontFamily: fontFamily,
+              color: fill,
+            ),
+            textAlign: TextAlign.center,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
