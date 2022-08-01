@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/widgets/list_of_cards.dart';
+import 'package:hearthstoneapp/src/presentation/widget/list_of_cards.dart';
 
 void main() => runApp(const HearthStoneApp());
 
 class HearthStoneApp extends StatelessWidget {
-  const HearthStoneApp({Key? key}) : super(key: key);
+  const HearthStoneApp({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/src/model/hearthstone_card.dart';
-import 'package:hearthstoneapp/utils/constants.dart';
-import 'package:hearthstoneapp/utils/palette.dart';
-import 'package:hearthstoneapp/widgets/card_property.dart';
-import 'package:hearthstoneapp/widgets/like_counter.dart';
-import 'package:hearthstoneapp/widgets/mechanics.dart';
-import 'package:hearthstoneapp/widgets/outlined_text.dart';
+import 'package:hearthstoneapp/src/core/util/constants.dart';
+import 'package:hearthstoneapp/src/core/util/palette.dart';
+import 'package:hearthstoneapp/src/data/model/hearthstone_card.dart';
+import 'package:hearthstoneapp/src/presentation/widget/card_property.dart';
+import 'package:hearthstoneapp/src/presentation/widget/like_counter.dart';
+import 'package:hearthstoneapp/src/presentation/widget/mechanics.dart';
+import 'package:hearthstoneapp/src/presentation/widget/outlined_text.dart';
 
 class CardView extends StatelessWidget {
   final HearthstoneCard card;
 
   const CardView({
-    Key? key,
+    super.key,
     required this.card,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CardView extends StatelessWidget {
         title: Constants.cardViewTitle,
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: DecoratedBox(
           decoration: const BoxDecoration(
             color: Colors.white,
           ),

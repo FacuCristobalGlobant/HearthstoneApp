@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/utils/constants.dart';
+import 'package:hearthstoneapp/src/core/util/constants.dart';
 
 class OutlinedText extends StatelessWidget {
   final double fontSize;
@@ -10,14 +10,14 @@ class OutlinedText extends StatelessWidget {
   final double strokeWidth;
 
   const OutlinedText({
-    Key? key,
+    super.key,
     required this.text,
     this.fontSize = Constants.bigFontSize,
     this.fill = Colors.white,
     this.outlineColor = Colors.black87,
-    this.fontFamily = "BigshotOne",
+    this.fontFamily = 'BigshotOne',
     this.strokeWidth = 6,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

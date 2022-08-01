@@ -7,7 +7,7 @@ class CardMechanic {
 
   factory CardMechanic.fromJson(Map json) {
     return CardMechanic(
-      name: json["name"],
+      name: json['name'] as String,
     );
   }
 }

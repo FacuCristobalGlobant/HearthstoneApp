@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hearthstoneapp/src/model/mechanic.dart';
-import 'package:hearthstoneapp/utils/constants.dart';
+import 'package:hearthstoneapp/src/core/util/constants.dart';
+import 'package:hearthstoneapp/src/data/model/mechanic.dart';
 
 class HearthstoneCard {
   final String name;
@@ -34,22 +34,22 @@ class HearthstoneCard {
   }
 
   factory HearthstoneCard.fromJson(Map json) {
-    List<CardMechanic> mechanics = [];
-    json["mechanics"]?.forEach((mechanic) {
-      CardMechanic currentMechanic =
+    final List<CardMechanic> mechanics = [];
+    json['mechanics']?.forEach((mechanic) {
+      final CardMechanic currentMechanic =
           CardMechanic.fromJson(mechanic as Map<String, dynamic>);
       mechanics.add(currentMechanic);
     });
 
     return HearthstoneCard(
-      type: json["type"],
-      playerClass: json["playerClass"],
-      cardId: json["cardId"],
-      name: json["name"],
-      cardSet: json["cardSet"],
-      text: json["text"],
-      health: json["health"],
-      locale: json["locale"],
+      type: json['type'] as String,
+      playerClass: json['playerClass'] as String,
+      cardId: json['cardId'] as String,
+      name: json['name'] as String,
+      cardSet: json['cardSet'] as String,
+      text: json['text'] as String?,
+      health: json['health'] as int?,
+      locale: json['locale'] as String,
       mechanics: mechanics,
     );
   }
