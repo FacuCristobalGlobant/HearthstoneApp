@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/utils/constants.dart';
-import 'package:hearthstoneapp/utils/palette.dart';
+import 'package:hearthstoneapp/src/core/util/constants.dart';
+import 'package:hearthstoneapp/src/core/util/palette.dart';
 
 class LikeCounter extends StatefulWidget {
   final IconData icon;
 
   const LikeCounter({
-    Key? key,
+    super.key,
     this.icon = Icons.favorite,
-  }) : super(key: key);
+  });
 
   @override
   LikeCounterState createState() => LikeCounterState();

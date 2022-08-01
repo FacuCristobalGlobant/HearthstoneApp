@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/src/model/hearthstone_card.dart';
-import 'package:hearthstoneapp/src/repository/card_list_repository.dart';
-import 'package:hearthstoneapp/utils/constants.dart';
-import 'package:hearthstoneapp/utils/custom_flex.dart';
-import 'package:hearthstoneapp/utils/palette.dart';
-import 'package:hearthstoneapp/widgets/card.dart';
+import 'package:hearthstoneapp/src/core/util/constants.dart';
+import 'package:hearthstoneapp/src/core/util/custom_flex.dart';
+import 'package:hearthstoneapp/src/core/util/palette.dart';
+import 'package:hearthstoneapp/src/data/model/hearthstone_card.dart';
+import 'package:hearthstoneapp/src/data/repository/card_list_repository.dart';
+import 'package:hearthstoneapp/src/presentation/widget/card.dart';
 
 class ListOfCards extends StatelessWidget {
-  ListOfCards({Key? key}) : super(key: key);
+  ListOfCards({super.key});
   final CardListRepository repository = CardListRepository();
   late final Future<List<HearthstoneCard>> listOfCards;
 
@@ -25,7 +25,7 @@ class ListOfCards extends StatelessWidget {
           context,
           AsyncSnapshot<List<HearthstoneCard>> snapshot,
         ) {
-          List<Widget> children = [];
+          final List<Widget> children = [];
           if (snapshot.hasData) {
             snapshot.data?.forEach((hearthstoneCard) {
               children.add(

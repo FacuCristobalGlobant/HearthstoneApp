@@ -14,15 +14,15 @@ abstract class Constants {
   static const verticalSmallPadding = EdgeInsets.symmetric(
     vertical: 10.0,
   );
-  static const cardTypeLabel = "Type: ";
-  static const cardIdLabel = "Card ID: ";
-  static const cardCostLabel = "Cost: ";
-  static const cardAttackLabel = "Attack: ";
-  static const cardHealthLabel = "Health: ";
-  static const cardAbilityLabel = "Description";
-  static const cardSetLabel = "Card set: ";
-  static const cardPlayerClassLabel = "Player Class: ";
-  static const cardMechanicsLabel = "Mechanics: ";
+  static const cardTypeLabel = 'Type: ';
+  static const cardIdLabel = 'Card ID: ';
+  static const cardCostLabel = 'Cost: ';
+  static const cardAttackLabel = 'Attack: ';
+  static const cardHealthLabel = 'Health: ';
+  static const cardAbilityLabel = 'Description';
+  static const cardSetLabel = 'Card set: ';
+  static const cardPlayerClassLabel = 'Player Class: ';
+  static const cardMechanicsLabel = 'Mechanics: ';
   static const double iconSize = 30;
   static const iconFontTextStyle = TextStyle(
     fontSize: 15,
@@ -58,12 +58,12 @@ abstract class Constants {
   ];
   static const double detailsTitleWidth = 400;
   static const jsonReadingError =
-      Text("There was an error reading the json file");
-  static const jsonReadingLoading = Text("Loading Data");
-  static const jsonPath = "assets/cards_list.json";
+      Text('There was an error reading the json file');
+  static const jsonReadingLoading = Text('Loading Data');
+  static const jsonPath = 'assets/cards_list.json';
   static const cardNameWidthFactor = 1 / (2.2);
-  static const defaultImage = "assets/images/EX1_572.png";
-  static const emptyString = "";
+  static const defaultImage = 'assets/images/EX1_572.png';
+  static const emptyString = '';
   static const propertyTextStyle = TextStyle(
     fontSize: Constants.mediumFontSize,
     color: Colors.white,

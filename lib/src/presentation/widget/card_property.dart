@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/utils/constants.dart';
-import 'package:hearthstoneapp/utils/custom_flex.dart';
+import 'package:hearthstoneapp/src/core/util/constants.dart';
+import 'package:hearthstoneapp/src/core/util/custom_flex.dart';
 
 class CardProperty extends StatelessWidget {
   final double fontSize;
@@ -11,14 +11,14 @@ class CardProperty extends StatelessWidget {
   final bool visibility;
 
   const CardProperty({
-    Key? key,
+    super.key,
+    required this.propertyName,
+    required this.child,
     this.fontSize = Constants.mediumFontSize,
     this.color = Colors.white,
     this.weight = FontWeight.normal,
-    required this.child,
-    required this.propertyName,
     this.visibility = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

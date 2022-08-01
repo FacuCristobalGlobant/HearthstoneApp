@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/src/model/mechanic.dart';
-import 'package:hearthstoneapp/utils/constants.dart';
+import 'package:hearthstoneapp/src/core/util/constants.dart';
+import 'package:hearthstoneapp/src/data/model/mechanic.dart';
 
 class Mechanics extends StatelessWidget {
   final List<CardMechanic> listOfMechanics;
@@ -8,20 +8,22 @@ class Mechanics extends StatelessWidget {
   final TextStyle style;
 
   const Mechanics({
-    Key? key,
+    super.key,
     required this.listOfMechanics,
     this.visibility = true,
     this.style = Constants.propertyTextStyle,
-  }) : super(key: key);
+  });
 
   List<Text> getWidgetsFromMechanics(List<CardMechanic> listOfMechanics) {
-    List<Text> listOfWidgets = [];
+    final List<Text> listOfWidgets = [];
     listOfMechanics.forEach((mechanic) {
-      listOfWidgets.add(Text(
-        '- ${mechanic.name}',
-        textAlign: TextAlign.end,
-        style: style,
-      ));
+      listOfWidgets.add(
+        Text(
+          '- ${mechanic.name}',
+          textAlign: TextAlign.end,
+          style: style,
+        ),
+      );
     });
     return listOfWidgets;
   }
