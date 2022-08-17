@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/src/core/util/constants.dart';
 import 'package:hearthstoneapp/src/core/util/palette.dart';
+import 'package:hearthstoneapp/src/core/util/styles.dart';
 
 class LikeCounter extends StatefulWidget {
   final IconData icon;
@@ -26,10 +26,10 @@ class LikeCounterState extends State<LikeCounter> {
         });
       },
       child: Container(
-        width: Constants.iconBoxSize,
-        padding: Constants.likeCounterPadding,
+        width: Styles.iconBoxSize,
+        padding: Styles.smallPadding,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Constants.likeCounterRadius),
+          borderRadius: BorderRadius.circular(Styles.likeCounterRadius),
           color: Palette.detailsColor,
         ),
         child: Stack(
@@ -37,15 +37,15 @@ class LikeCounterState extends State<LikeCounter> {
           children: [
             Icon(
               widget.icon,
-              size: Constants.iconSize,
+              size: Styles.iconSize,
               color: Colors.white,
             ),
             Positioned(
-              right: Constants.likeCounterCountRightDistance,
+              right: Styles.likeCounterCountRightDistance,
               child: Text(
                 '$count',
                 textAlign: TextAlign.center,
-                style: Constants.iconFontTextStyle,
+                style: Styles.iconFontTextStyle,
               ),
             ),
           ],

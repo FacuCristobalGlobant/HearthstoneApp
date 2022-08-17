@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/src/core/util/constants.dart';
+import 'package:hearthstoneapp/src/core/util/assets.dart';
+import 'package:hearthstoneapp/src/core/util/keys.dart';
 import 'package:hearthstoneapp/src/core/util/palette.dart';
+import 'package:hearthstoneapp/src/core/util/strings.dart';
+import 'package:hearthstoneapp/src/core/util/styles.dart';
 import 'package:hearthstoneapp/src/data/model/hearthstone_card.dart';
 import 'package:hearthstoneapp/src/presentation/widget/card_property.dart';
 import 'package:hearthstoneapp/src/presentation/widget/like_counter.dart';
@@ -18,9 +21,10 @@ class CardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Keys.cardWidgetKey,
       appBar: AppBar(
         backgroundColor: Palette.boxColor,
-        title: Constants.cardViewTitle,
+        title: Strings.cardViewTitle,
       ),
       body: SingleChildScrollView(
         child: DecoratedBox(
@@ -30,93 +34,108 @@ class CardView extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: Constants.cardNameContainerMargin,
-                height: Constants.cardNameContainerHeight,
+                margin: Styles.topMediumMargin,
+                height: Styles.cardNameContainerHeight,
                 child: SizedBox(
-                  width: Constants.detailsTitleWidth,
+                  width: Styles.detailsTitleWidth,
                   child: Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
                       const Positioned(
-                        right: Constants.likeCounterRightDistance,
+                        right: Styles.likeCounterRightDistance,
                         child: LikeCounter(),
                       ),
                       OutlinedText(
-                        text: card.name,
+                        text: card.name!,
                       ),
                     ],
                   ),
                 ),
               ),
-              Image(
-                image: card.image,
+              Padding(
+                padding: Styles.largePadding,
+                child: card.image != null
+                    ? Image.network(card.image!)
+                    : Image.asset(Assets.defaultImage),
               ),
               Container(
-                margin: Constants.propertyContainerMargin,
+                margin: Styles.propertyContainerMargin,
                 decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(Constants.containerRadius),
+                  borderRadius: BorderRadius.circular(Styles.containerRadius),
                   color: Palette.primaryColor,
-                  boxShadow: Constants.containerShadow,
+                  boxShadow: Styles.containerShadow,
                 ),
                 child: Padding(
-                  padding: Constants.propertyContainerPadding,
+                  padding: Styles.mediumPadding,
                   child: Column(
                     children: [
                       CardProperty(
-                        propertyName: Constants.cardIdLabel,
+                        propertyName: Strings.cardIdLabel,
+                        visibility: card.cardId != null,
                         child: Text(
-                          card.cardId,
-                          style: Constants.propertyTextStyle,
+                          card.cardId ?? Strings.emptyString,
+                          style: Styles.propertyTextStyle,
                         ),
                       ),
                       CardProperty(
-                        propertyName: Constants.cardTypeLabel,
+                        propertyName: Strings.cardTypeLabel,
+                        visibility: card.type != null,
                         child: Text(
-                          card.type,
-                          style: Constants.propertyTextStyle,
+                          card.type ?? Strings.emptyString,
+                          style: Styles.propertyTextStyle,
                         ),
                       ),
                       CardProperty(
-                        propertyName: Constants.cardSetLabel,
+                        propertyName: Strings.cardFactionLabel,
+                        visibility: card.faction != null,
                         child: Text(
-                          card.cardSet,
-                          style: Constants.propertyTextStyle,
+                          card.faction ?? Strings.emptyString,
+                          style: Styles.propertyTextStyle,
                         ),
                       ),
                       CardProperty(
-                        propertyName: Constants.cardPlayerClassLabel,
+                        propertyName: Strings.cardSetLabel,
+                        visibility: card.cardSet != null,
                         child: Text(
-                          card.playerClass,
-                          style: Constants.propertyTextStyle,
+                          card.cardSet ?? Strings.emptyString,
+                          style: Styles.propertyTextStyle,
+                          textAlign: TextAlign.end,
                         ),
                       ),
                       CardProperty(
-                        propertyName: Constants.cardHealthLabel,
+                        propertyName: Strings.cardPlayerClassLabel,
+                        visibility: card.playerClass != null,
+                        child: Text(
+                          card.playerClass ?? Strings.emptyString,
+                          style: Styles.propertyTextStyle,
+                        ),
+                      ),
+                      CardProperty(
+                        propertyName: Strings.cardHealthLabel,
                         visibility: card.health != null,
                         child: Text(
                           card.health.toString(),
-                          style: Constants.propertyTextStyle,
+                          style: Styles.propertyTextStyle,
                         ),
                       ),
                       CardProperty(
-                        propertyName: Constants.cardCostLabel,
+                        propertyName: Strings.cardCostLabel,
                         visibility: card.cost != null,
                         child: Text(
                           card.cost.toString(),
-                          style: Constants.propertyTextStyle,
+                          style: Styles.propertyTextStyle,
                         ),
                       ),
                       CardProperty(
-                        propertyName: Constants.cardAttackLabel,
+                        propertyName: Strings.cardAttackLabel,
                         visibility: card.attack != null,
                         child: Text(
                           card.attack.toString(),
-                          style: Constants.propertyTextStyle,
+                          style: Styles.propertyTextStyle,
                         ),
                       ),
                       CardProperty(
-                        propertyName: Constants.cardMechanicsLabel,
+                        propertyName: Strings.cardMechanicsLabel,
                         visibility: card.mechanics.isNotEmpty,
                         child: Mechanics(
                           listOfMechanics: card.mechanics,
@@ -129,22 +148,22 @@ class CardView extends StatelessWidget {
               Visibility(
                 visible: card.text != null,
                 child: Padding(
-                  padding: Constants.abilityLabelPadding,
+                  padding: Styles.largePadding,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        Constants.cardAbilityLabel,
+                        Strings.cardAbilityLabel,
                         style: TextStyle(
-                          fontSize: Constants.abilityLabelFontSize,
+                          fontSize: Styles.abilityLabelFontSize,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
                       ),
                       Text(
-                        card.text ?? Constants.emptyString,
+                        card.text ?? Strings.emptyString,
                         style: const TextStyle(
-                          fontSize: Constants.mediumFontSize,
+                          fontSize: Styles.mediumFontSize,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),

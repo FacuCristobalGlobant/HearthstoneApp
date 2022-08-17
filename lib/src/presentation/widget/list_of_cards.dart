@@ -1,33 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/src/core/util/constants.dart';
-import 'package:hearthstoneapp/src/core/util/custom_flex.dart';
+import 'package:hearthstoneapp/src/core/util/api_response_state.dart';
 import 'package:hearthstoneapp/src/core/util/palette.dart';
-import 'package:hearthstoneapp/src/data/model/hearthstone_card.dart';
-import 'package:hearthstoneapp/src/data/repository/card_list_repository.dart';
+import 'package:hearthstoneapp/src/core/util/strings.dart';
+import 'package:hearthstoneapp/src/core/util/styles.dart';
+import 'package:hearthstoneapp/src/presentation/bloc/list_of_cards_bloc.dart';
 import 'package:hearthstoneapp/src/presentation/widget/card.dart';
+import 'package:hearthstoneapp/src/presentation/widget/grid_card_item.dart';
+import 'package:hearthstoneapp/src/presentation/widget/not_found.dart';
+import 'package:hearthstoneapp/src/presentation/widget/search_menu.dart';
+import 'package:hearthstoneapp/src/presentation/widget/welcome.dart';
 
 class ListOfCards extends StatelessWidget {
-  ListOfCards({super.key});
-  final CardListRepository repository = CardListRepository();
-  late final Future<List<HearthstoneCard>> listOfCards;
+  late final HearthstoneCardListBloc hearthstoneCardListBloc;
+  ListOfCards({super.key, HearthstoneCardListBloc? hearthstoneCardListBloc}) {
+    this.hearthstoneCardListBloc =
+        hearthstoneCardListBloc ?? HearthstoneCardListBloc();
+  }
 
   @override
   Widget build(BuildContext context) {
-    listOfCards = repository.readJson(Constants.jsonPath);
     return Scaffold(
+      drawer: Drawer(
+        child: SearchMenu(
+          hearthstoneCardListBloc: hearthstoneCardListBloc,
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Palette.boxColor,
-        title: Constants.listViewTitle,
+        title: Strings.listViewTitle,
       ),
-      body: FutureBuilder(
-        future: listOfCards,
-        builder: (
-          context,
-          AsyncSnapshot<List<HearthstoneCard>> snapshot,
-        ) {
+      body: StreamBuilder<ApiResponse>(
+        stream: hearthstoneCardListBloc.getCardListStream(),
+        builder: (context, snapshot) {
           final List<Widget> children = [];
           if (snapshot.hasData) {
-            snapshot.data?.forEach((hearthstoneCard) {
+            if (snapshot.data!.state == ApiResponseState.loading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.data!.state == ApiResponseState.empty) {
+              return const NotFound();
+            }
+            snapshot.data?.listOfCards!.forEach((hearthstoneCard) {
               children.add(
                 GestureDetector(
                   onTap: () {
@@ -40,75 +55,33 @@ class ListOfCards extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Container(
-                    margin: Constants.listItemMargin,
-                    padding: Constants.listItemPadding,
-                    decoration: BoxDecoration(
-                      color: Palette.primaryColor,
-                      borderRadius:
-                          BorderRadius.circular(Constants.containerRadius),
-                      boxShadow: Constants.containerShadow,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          flex: CustomFlex.large,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Center(
-                                child: Padding(
-                                  padding: Constants.verticalSmallPadding,
-                                  child: Text(
-                                    hearthstoneCard.name,
-                                    style: const TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: Constants.mediumFontSize,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                hearthstoneCard.type,
-                                style: Constants.iconFontTextStyle,
-                              ),
-                              Text(
-                                hearthstoneCard.cardSet,
-                                style: Constants.iconFontTextStyle,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Flexible(
-                          flex: CustomFlex.medium,
-                          child: Image(
-                            alignment: Alignment.centerRight,
-                            fit: BoxFit.cover,
-                            image: hearthstoneCard.image,
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: GridCardItem(
+                    image: hearthstoneCard.image,
+                    name: hearthstoneCard.name ?? Strings.emptyString,
+                    cardSet: hearthstoneCard.cardSet ?? Strings.emptyString,
+                    type: hearthstoneCard.type ?? Strings.emptyString,
                   ),
                 ),
               );
             });
           } else if (snapshot.hasError) {
             children.add(
-              Constants.jsonReadingError,
+              Text(
+                snapshot.error.toString(),
+              ),
             );
           } else {
-            children.add(
-              Constants.jsonReadingLoading,
+            return const Center(
+              child: Home(),
             );
           }
-          return SingleChildScrollView(
-            child: Column(
-              children: children,
-            ),
+          return GridView.count(
+            padding: Styles.smallPadding,
+            crossAxisCount: Styles.gridItemsPerRow,
+            mainAxisSpacing: Styles.gritItemSpacing,
+            crossAxisSpacing: Styles.gritItemSpacing,
+            childAspectRatio: Styles.gridItemAspectRatio,
+            children: children,
           );
         },
       ),
