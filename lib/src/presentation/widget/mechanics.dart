@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hearthstoneapp/src/core/util/constants.dart';
+import 'package:hearthstoneapp/src/core/util/styles.dart';
 import 'package:hearthstoneapp/src/data/model/mechanic.dart';
 
 class Mechanics extends StatelessWidget {
@@ -11,7 +11,7 @@ class Mechanics extends StatelessWidget {
     super.key,
     required this.listOfMechanics,
     this.visibility = true,
-    this.style = Constants.propertyTextStyle,
+    this.style = Styles.propertyTextStyle,
   });
 
   List<Text> getWidgetsFromMechanics(List<CardMechanic> listOfMechanics) {
