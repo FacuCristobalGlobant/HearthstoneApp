@@ -1,17 +1,23 @@
 import 'dart:async';
+
 import 'package:hearthstoneapp/src/core/util/api_response_state.dart';
+import 'package:hearthstoneapp/src/data/datasource/local/DAOs/firestore_database.dart';
 import 'package:hearthstoneapp/src/data/model/hearthstone_card.dart';
 import 'package:hearthstoneapp/src/data/repository/card_list_repository.dart';
 import 'package:hearthstoneapp/src/domain/bloc/i_hearthstone_card_list_bloc.dart';
 
 class HearthstoneCardListBloc extends IHearthstoneCardListBloc {
   late final CardListRepository _repository;
+
   final ApiResponse _apiResponse = ApiResponse(state: ApiResponseState.initial);
   final StreamController<ApiResponse> _hearthstoneCardStreamController =
       StreamController();
 
-  HearthstoneCardListBloc({CardListRepository? repository}) {
-    _repository = repository ?? CardListRepository();
+  HearthstoneCardListBloc({
+    CardListRepository? repository,
+  }) {
+    _repository =
+        repository ?? CardListRepository(fsDatabase: FirestoreDatabase());
   }
 
   @override
@@ -34,7 +40,10 @@ class HearthstoneCardListBloc extends IHearthstoneCardListBloc {
       _hearthstoneCardStreamController.stream;
 
   @override
-  Future<void> searchForCards(String endpoint) async {
+  Future<void> searchForCards(
+    Map<String, String> endpoint,
+    String keyword,
+  ) async {
     _hearthstoneCardStreamController.sink.add(
       ApiResponse(
         state: ApiResponseState.loading,
@@ -43,7 +52,7 @@ class HearthstoneCardListBloc extends IHearthstoneCardListBloc {
 
     try {
       final List<HearthstoneCard> listOfCards =
-          await _repository.getData(endpoint: endpoint);
+          await _repository.getData(endpoint: endpoint, keyword: keyword);
       if (listOfCards.isEmpty) {
         _hearthstoneCardStreamController.sink.add(
           ApiResponse(

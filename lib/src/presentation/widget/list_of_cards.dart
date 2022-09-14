@@ -34,55 +34,58 @@ class ListOfCards extends StatelessWidget {
         builder: (context, snapshot) {
           final List<Widget> children = [];
           if (snapshot.hasData) {
-            if (snapshot.data!.state == ApiResponseState.loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.data!.state == ApiResponseState.empty) {
-              return const NotFound();
-            }
-            snapshot.data?.listOfCards!.forEach((hearthstoneCard) {
-              children.add(
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CardView(
-                          card: hearthstoneCard,
-                        ),
+            switch (snapshot.data!.state) {
+              case ApiResponseState.empty:
+                return const NotFound();
+              case ApiResponseState.success:
+                snapshot.data?.listOfCards!.forEach((hearthstoneCard) {
+                  children.add(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CardView(
+                              card: hearthstoneCard,
+                            ),
+                          ),
+                        );
+                      },
+                      child: GridCardItem(
+                        image: hearthstoneCard.image,
+                        name: hearthstoneCard.name ?? Strings.emptyString,
+                        cardSet: hearthstoneCard.cardSet ?? Strings.emptyString,
+                        type: hearthstoneCard.type ?? Strings.emptyString,
                       ),
-                    );
-                  },
-                  child: GridCardItem(
-                    image: hearthstoneCard.image,
-                    name: hearthstoneCard.name ?? Strings.emptyString,
-                    cardSet: hearthstoneCard.cardSet ?? Strings.emptyString,
-                    type: hearthstoneCard.type ?? Strings.emptyString,
-                  ),
-                ),
-              );
-            });
-          } else if (snapshot.hasError) {
-            children.add(
-              Text(
-                snapshot.error.toString(),
-              ),
-            );
+                    ),
+                  );
+                });
+                return GridView.count(
+                  padding: Styles.smallPadding,
+                  crossAxisCount: Styles.gridItemsPerRow,
+                  mainAxisSpacing: Styles.gritItemSpacing,
+                  crossAxisSpacing: Styles.gritItemSpacing,
+                  childAspectRatio: Styles.gridItemAspectRatio,
+                  children: children,
+                );
+              case ApiResponseState.loading:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case ApiResponseState.error:
+                return Text(
+                  snapshot.error.toString(),
+                );
+              default:
+                return const Center(
+                  child: Home(),
+                );
+            }
           } else {
             return const Center(
               child: Home(),
             );
           }
-          return GridView.count(
-            padding: Styles.smallPadding,
-            crossAxisCount: Styles.gridItemsPerRow,
-            mainAxisSpacing: Styles.gritItemSpacing,
-            crossAxisSpacing: Styles.gritItemSpacing,
-            childAspectRatio: Styles.gridItemAspectRatio,
-            children: children,
-          );
         },
       ),
     );

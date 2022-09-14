@@ -44,8 +44,11 @@ class MockHearthstoneCardListBloc extends _i1.Mock
               returnValue: _i3.Stream<_i4.ApiResponse>.empty())
           as _i3.Stream<_i4.ApiResponse>);
   @override
-  _i3.Future<void> searchForCards(String? endpoint) => (super.noSuchMethod(
-      Invocation.method(#searchForCards, [endpoint]),
-      returnValue: _i3.Future<void>.value(),
-      returnValueForMissingStub: _i3.Future<void>.value()) as _i3.Future<void>);
+  _i3.Future<void> searchForCards(
+          Map<String, String>? endpoint, String? keyword) =>
+      (super.noSuchMethod(
+              Invocation.method(#searchForCards, [endpoint, keyword]),
+              returnValue: _i3.Future<void>.value(),
+              returnValueForMissingStub: _i3.Future<void>.value())
+          as _i3.Future<void>);
 }

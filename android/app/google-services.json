@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "867413164519",
+    "project_id": "hearthstoneapp-persistence",
+    "storage_bucket": "hearthstoneapp-persistence.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867413164519:android:3a0249f055a93651f0bd42",
+        "android_client_info": {
+          "package_name": "com.Facu.HearthstoneApp.hearthstoneapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867413164519-33mqbbges5jhl243f82ttj0ud3jdktik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6bf8SMs94B8BAOCdT4H0K5RkBkeBmA7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867413164519-33mqbbges5jhl243f82ttj0ud3jdktik.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

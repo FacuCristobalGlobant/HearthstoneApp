@@ -8,22 +8,26 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import './list_of_cards_bloc_test.mocks.dart';
+import '../../lib/src/data/datasource/local/DAOs/firestore_database.dart';
 import '../custom_matchers/has_state.dart';
 
-@GenerateMocks([CardListRepository])
+@GenerateMocks([CardListRepository, FirestoreDatabase])
 void main() {
   group('BloC testing', () {
     test(
       'When given a successful response with content should emit ApiResponse objects in the following order : initial, loading and success. When given an empty list should return empty instead of success',
       () async {
-        const endpoint = '${ApiProperties.byName}ysera';
-
+        const Map<String, String> endpoint = ApiProperties.byName;
+        const String keyword = 'ysera';
         final repository = MockCardListRepository();
         final HearthstoneCardListBloc cardListBloc =
             HearthstoneCardListBloc(repository: repository);
         final cardListStream = cardListBloc.getCardListStream();
 
-        when(repository.getData(endpoint: endpoint)).thenAnswer(
+        when(repository.getData(
+          endpoint: endpoint,
+          keyword: keyword,
+        )).thenAnswer(
           (_) async => <HearthstoneCard>[
             HearthstoneCard(cardId: '1'),
             HearthstoneCard(cardId: '2'),
@@ -43,26 +47,39 @@ void main() {
         );
 
         await cardListBloc.initialize();
-        await cardListBloc.searchForCards(endpoint);
+        await cardListBloc.searchForCards(
+          endpoint,
+          keyword,
+        );
 
-        when(repository.getData(endpoint: endpoint)).thenAnswer(
+        when(
+          repository.getData(
+            endpoint: endpoint,
+            keyword: keyword,
+          ),
+        ).thenAnswer(
           (_) async => <HearthstoneCard>[],
         );
 
-        await cardListBloc.searchForCards(endpoint);
+        await cardListBloc.searchForCards(
+          endpoint,
+          keyword,
+        );
       },
     );
     test(
       "If there's an exception it should emit ApiResponse objects in this order: initial, loading and error",
       () async {
-        const endpoint = 'WrongEndpoint';
+        const Map<String, String> endpoint = ApiProperties.byName;
+        const String keyword = 'ysera';
 
         final repository = MockCardListRepository();
         final HearthstoneCardListBloc cardListBloc =
             HearthstoneCardListBloc(repository: repository);
         final cardListStream = cardListBloc.getCardListStream();
 
-        when(repository.getData(endpoint: endpoint)).thenAnswer(
+        when(repository.getData(endpoint: endpoint, keyword: keyword))
+            .thenAnswer(
           (_) async => throw Exception(),
         );
 
@@ -76,7 +93,7 @@ void main() {
         );
 
         await cardListBloc.initialize();
-        await cardListBloc.searchForCards(endpoint);
+        await cardListBloc.searchForCards(endpoint, keyword);
       },
     );
   });
