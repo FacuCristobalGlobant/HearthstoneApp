@@ -5,6 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:hearthstoneapp/src/data/datasource/local/DAOs/firestore_database.dart'
+    as _i5;
 import 'package:hearthstoneapp/src/data/datasource/remote/api_service.dart'
     as _i3;
 import 'package:http/http.dart' as _i2;
@@ -35,10 +37,37 @@ class MockApiService extends _i1.Mock implements _i3.ApiService {
   }
 
   @override
-  _i4.Future<_i2.Response> getData({String? endpoint = r''}) => (super
-          .noSuchMethod(
-              Invocation.method(#getData, [], {#endpoint: endpoint}),
+  _i4.Future<_i2.Response> getData(
+          {Map<String, String>? endpoint, String? keyword}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getData, [], {#endpoint: endpoint, #keyword: keyword}),
               returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(this,
-                  Invocation.method(#getData, [], {#endpoint: endpoint}))))
-      as _i4.Future<_i2.Response>);
+                  Invocation.method(#getData, [], {#endpoint: endpoint, #keyword: keyword}))))
+          as _i4.Future<_i2.Response>);
+}
+
+/// A class which mocks [FirestoreDatabase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFirestoreDatabase extends _i1.Mock implements _i5.FirestoreDatabase {
+  MockFirestoreDatabase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<void> storeData(List<Map<String, dynamic>>? listOfCards) =>
+      (super.noSuchMethod(Invocation.method(#storeData, [listOfCards]),
+              returnValue: _i4.Future<void>.value(),
+              returnValueForMissingStub: _i4.Future<void>.value())
+          as _i4.Future<void>);
+  @override
+  _i4.Future<List<Map<String, dynamic>>> getData(
+          {Map<String, String>? endpoint, String? keyword}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getData, [], {#endpoint: endpoint, #keyword: keyword}),
+              returnValue: _i4.Future<List<Map<String, dynamic>>>.value(
+                  <Map<String, dynamic>>[]))
+          as _i4.Future<List<Map<String, dynamic>>>);
 }

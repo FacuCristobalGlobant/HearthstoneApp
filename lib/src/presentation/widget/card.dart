@@ -55,7 +55,29 @@ class CardView extends StatelessWidget {
               Padding(
                 padding: Styles.largePadding,
                 child: card.image != null
-                    ? Image.network(card.image!)
+                    ? Image.network(
+                        card.image!,
+                        errorBuilder: (context, error, _) => Center(
+                          child: Image.asset(Assets.defaultImage),
+                        ),
+                        loadingBuilder: (
+                          BuildContext context,
+                          Widget child,
+                          ImageChunkEvent? loadingProgress,
+                        ) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
+                      )
                     : Image.asset(Assets.defaultImage),
               ),
               Container(

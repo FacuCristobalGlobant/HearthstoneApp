@@ -72,7 +72,8 @@ void main() {
     final StreamController<ApiResponse> hearthstoneCardStreamController =
         StreamController();
     const String cardName = 'ysera';
-    const String endpoint = ApiProperties.byName + cardName;
+    const Map<String, String> endpoint = ApiProperties.byName;
+    const String keyword = 'ysera';
     final List<HearthstoneCard> listOfCards = [
       HearthstoneCard(cardId: 'id1', name: 'card1'),
       HearthstoneCard(cardId: 'id2', name: 'card2'),
@@ -91,7 +92,7 @@ void main() {
       ),
     );
 
-    when(cardBloc.searchForCards(endpoint)).thenAnswer((_) async {
+    when(cardBloc.searchForCards(endpoint, keyword)).thenAnswer((_) async {
       hearthstoneCardStreamController.sink.add(
         ApiResponse(
           state: ApiResponseState.success,

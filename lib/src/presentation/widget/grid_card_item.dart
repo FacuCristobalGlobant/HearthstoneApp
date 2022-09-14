@@ -31,29 +31,31 @@ class GridCardItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (image != null)
-            Image.network(
-              image!,
-              loadingBuilder: (
-                BuildContext context,
-                Widget child,
-                ImageChunkEvent? loadingProgress,
-              ) {
-                if (loadingProgress == null) {
-                  return child;
-                }
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
+          (image != null)
+              ? Image.network(
+                  image!,
+                  errorBuilder: (context, error, _) => Center(
+                    child: Image.asset(Assets.defaultImage),
                   ),
-                );
-              },
-            )
-          else
-            Image.asset(Assets.defaultImage),
+                  loadingBuilder: (
+                    BuildContext context,
+                    Widget child,
+                    ImageChunkEvent? loadingProgress,
+                  ) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                )
+              : Image.asset(Assets.defaultImage),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

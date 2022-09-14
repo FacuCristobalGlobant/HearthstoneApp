@@ -62,24 +62,30 @@ class _SearchMenuState extends State<SearchMenu> {
             children: [
               DrawerButton(
                 onClickAction: () {
-                  widget.hearthstoneCardListBloc
-                      .searchForCards('${ApiProperties.byName}$keyword');
+                  widget.hearthstoneCardListBloc.searchForCards(
+                    ApiProperties.byName,
+                    keyword,
+                  );
                   Scaffold.of(context).closeDrawer();
                 },
                 text: Strings.searchByNameText,
               ),
               DrawerButton(
                 onClickAction: () {
-                  widget.hearthstoneCardListBloc
-                      .searchForCards('${ApiProperties.byFaction}$keyword');
+                  widget.hearthstoneCardListBloc.searchForCards(
+                    ApiProperties.byFaction,
+                    keyword,
+                  );
                   Scaffold.of(context).closeDrawer();
                 },
                 text: Strings.searchByFactionText,
               ),
               DrawerButton(
                 onClickAction: () {
-                  widget.hearthstoneCardListBloc
-                      .searchForCards('${ApiProperties.byCardSet}$keyword');
+                  widget.hearthstoneCardListBloc.searchForCards(
+                    ApiProperties.byCardSet,
+                    keyword,
+                  );
                   Scaffold.of(context).closeDrawer();
                 },
                 text: Strings.searchBySetText,

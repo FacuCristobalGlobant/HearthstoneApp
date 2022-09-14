@@ -3,13 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
-import 'package:hearthstoneapp/src/data/datasource/remote/api_service.dart'
-    as _i2;
-import 'package:hearthstoneapp/src/data/model/hearthstone_card.dart' as _i5;
+import 'package:hearthstoneapp/src/data/datasource/local/DAOs/firestore_database.dart'
+    as _i5;
+import 'package:hearthstoneapp/src/data/model/hearthstone_card.dart' as _i4;
 import 'package:hearthstoneapp/src/data/repository/card_list_repository.dart'
-    as _i3;
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -23,34 +23,47 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeApiService_0 extends _i1.SmartFake implements _i2.ApiService {
-  _FakeApiService_0(Object parent, Invocation parentInvocation)
-      : super(parent, parentInvocation);
-}
-
 /// A class which mocks [CardListRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCardListRepository extends _i1.Mock
-    implements _i3.CardListRepository {
+    implements _i2.CardListRepository {
   MockCardListRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.ApiService get datasource => (super.noSuchMethod(
-          Invocation.getter(#datasource),
-          returnValue: _FakeApiService_0(this, Invocation.getter(#datasource)))
-      as _i2.ApiService);
-  @override
-  set datasource(_i2.ApiService? _datasource) =>
-      super.noSuchMethod(Invocation.setter(#datasource, _datasource),
-          returnValueForMissingStub: null);
-  @override
-  _i4.Future<List<_i5.HearthstoneCard>> getData({String? endpoint = r''}) =>
+  _i3.Future<List<_i4.HearthstoneCard>> getData(
+          {Map<String, String>? endpoint, String? keyword}) =>
       (super.noSuchMethod(
-              Invocation.method(#getData, [], {#endpoint: endpoint}),
-              returnValue: _i4.Future<List<_i5.HearthstoneCard>>.value(
-                  <_i5.HearthstoneCard>[]))
-          as _i4.Future<List<_i5.HearthstoneCard>>);
+              Invocation.method(
+                  #getData, [], {#endpoint: endpoint, #keyword: keyword}),
+              returnValue: _i3.Future<List<_i4.HearthstoneCard>>.value(
+                  <_i4.HearthstoneCard>[]))
+          as _i3.Future<List<_i4.HearthstoneCard>>);
+}
+
+/// A class which mocks [FirestoreDatabase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFirestoreDatabase extends _i1.Mock implements _i5.FirestoreDatabase {
+  MockFirestoreDatabase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<void> storeData(List<Map<String, dynamic>>? listOfCards) =>
+      (super.noSuchMethod(Invocation.method(#storeData, [listOfCards]),
+              returnValue: _i3.Future<void>.value(),
+              returnValueForMissingStub: _i3.Future<void>.value())
+          as _i3.Future<void>);
+  @override
+  _i3.Future<List<Map<String, dynamic>>> getData(
+          {Map<String, String>? endpoint, String? keyword}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getData, [], {#endpoint: endpoint, #keyword: keyword}),
+              returnValue: _i3.Future<List<Map<String, dynamic>>>.value(
+                  <Map<String, dynamic>>[]))
+          as _i3.Future<List<Map<String, dynamic>>>);
 }

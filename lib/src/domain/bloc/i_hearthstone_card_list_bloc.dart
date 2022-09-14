@@ -5,5 +5,5 @@ import 'package:hearthstoneapp/src/domain/bloc/i_bloc.dart';
 abstract class IHearthstoneCardListBloc extends IBloc {
   List<HearthstoneCard>? get cardList;
   Stream<ApiResponse> getCardListStream();
-  void searchForCards(String keyword);
+  void searchForCards(Map<String, String> endpoint, String keyword);
 }
