@@ -5,17 +5,21 @@ import 'package:hearthstoneapp/src/core/util/palette.dart';
 import 'package:hearthstoneapp/src/core/util/strings.dart';
 import 'package:hearthstoneapp/src/core/util/styles.dart';
 import 'package:hearthstoneapp/src/data/model/hearthstone_card.dart';
+import 'package:hearthstoneapp/src/presentation/bloc/favorites_bloc.dart';
 import 'package:hearthstoneapp/src/presentation/widget/card_property.dart';
+import 'package:hearthstoneapp/src/presentation/widget/favorite.dart';
 import 'package:hearthstoneapp/src/presentation/widget/like_counter.dart';
 import 'package:hearthstoneapp/src/presentation/widget/mechanics.dart';
 import 'package:hearthstoneapp/src/presentation/widget/outlined_text.dart';
 
 class CardView extends StatelessWidget {
   final HearthstoneCard card;
+  final FavoritesBloc favoritesBloc;
 
   const CardView({
     super.key,
     required this.card,
+    required this.favoritesBloc,
   });
 
   @override
@@ -41,6 +45,13 @@ class CardView extends StatelessWidget {
                   child: Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
+                      Positioned(
+                        left: Styles.likeCounterRightDistance,
+                        child: Favorite(
+                          card: card,
+                          favoritesBloc: favoritesBloc,
+                        ),
+                      ),
                       const Positioned(
                         right: Styles.likeCounterRightDistance,
                         child: LikeCounter(),

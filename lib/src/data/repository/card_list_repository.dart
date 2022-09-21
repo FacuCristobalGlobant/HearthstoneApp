@@ -5,10 +5,13 @@ import 'package:hearthstoneapp/src/data/datasource/i_api_datasource.dart';
 import 'package:hearthstoneapp/src/data/datasource/local/DAOs/firestore_database.dart';
 import 'package:hearthstoneapp/src/data/datasource/remote/api_service.dart';
 import 'package:hearthstoneapp/src/data/model/hearthstone_card.dart';
+import 'package:hearthstoneapp/src/domain/repository/i_repository.dart';
 
-class CardListRepository {
+class CardListRepository implements ICardListRepository {
   late final IApiDatasource _datasource;
   late final FirestoreDatabase? _firestoreDatabase;
+
+  @override
   Future<List<HearthstoneCard>> getData({
     required Map<String, String> endpoint,
     required String keyword,
@@ -43,7 +46,7 @@ class CardListRepository {
           listOfCards.add(currentCard);
         });
       } catch (e) {
-        throw Exception('there was an error retrieving data');
+        throw Exception(e);
       }
     }
 

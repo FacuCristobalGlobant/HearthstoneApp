@@ -62,6 +62,23 @@ class MockFirestoreDatabase extends _i1.Mock implements _i5.FirestoreDatabase {
               returnValueForMissingStub: _i4.Future<void>.value())
           as _i4.Future<void>);
   @override
+  _i4.Future<List<Map<String, dynamic>>> getFavorites() => (super.noSuchMethod(
+      Invocation.method(#getFavorites, []),
+      returnValue: _i4.Future<List<Map<String, dynamic>>>.value(
+          <Map<String, dynamic>>[])) as _i4.Future<List<Map<String, dynamic>>>);
+  @override
+  _i4.Future<bool> isFavorite(String? cardId) =>
+      (super.noSuchMethod(Invocation.method(#isFavorite, [cardId]),
+          returnValue: _i4.Future<bool>.value(false)) as _i4.Future<bool>);
+  @override
+  _i4.Future<bool> setFavorite(String? cardId) =>
+      (super.noSuchMethod(Invocation.method(#setFavorite, [cardId]),
+          returnValue: _i4.Future<bool>.value(false)) as _i4.Future<bool>);
+  @override
+  _i4.Future<bool> removeFavorite(String? cardId) =>
+      (super.noSuchMethod(Invocation.method(#removeFavorite, [cardId]),
+          returnValue: _i4.Future<bool>.value(false)) as _i4.Future<bool>);
+  @override
   _i4.Future<List<Map<String, dynamic>>> getData(
           {Map<String, String>? endpoint, String? keyword}) =>
       (super.noSuchMethod(

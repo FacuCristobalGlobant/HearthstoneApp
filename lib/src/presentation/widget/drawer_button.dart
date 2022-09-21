@@ -6,10 +6,12 @@ import 'package:hearthstoneapp/src/core/util/styles.dart';
 class DrawerButton extends StatelessWidget {
   final Function onClickAction;
   final String text;
+  final Color color;
   const DrawerButton({
     super.key,
     required this.onClickAction,
     required this.text,
+    this.color = Palette.boxColor,
   });
 
   @override
@@ -19,7 +21,7 @@ class DrawerButton extends StatelessWidget {
       margin: Styles.topMediumMargin,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Palette.boxColor,
+          primary: color,
           padding: Styles.mediumPadding,
         ),
         onPressed: () {
