@@ -7,7 +7,7 @@ class LikeCounter extends StatefulWidget {
 
   const LikeCounter({
     super.key,
-    this.icon = Icons.favorite,
+    this.icon = Icons.thumb_up_sharp,
   });
 
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class Styles {
   static const double iconSize = 30;
+  static const double iconSizeFavorite = 40;
   static const double iconBoxSize = 80;
   static const double abilityLabelFontSize = 25;
   static const double mediumFontSize = 15;

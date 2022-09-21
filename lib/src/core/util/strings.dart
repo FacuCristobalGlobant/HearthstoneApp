@@ -24,4 +24,7 @@ abstract class Strings {
   static const searchBySetText = 'Search by set';
   static const searchWelcomeButtonText = 'Search';
   static const searchInputHintText = 'Keyword';
+  static const favoritesTitle = 'Favorites';
+  static const collectionName = 'cards';
+  static const favoriteField = 'favorite';
 }

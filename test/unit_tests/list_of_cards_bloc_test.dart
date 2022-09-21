@@ -24,10 +24,12 @@ void main() {
             HearthstoneCardListBloc(repository: repository);
         final cardListStream = cardListBloc.getCardListStream();
 
-        when(repository.getData(
-          endpoint: endpoint,
-          keyword: keyword,
-        )).thenAnswer(
+        when(
+          repository.getData(
+            endpoint: endpoint,
+            keyword: keyword,
+          ),
+        ).thenAnswer(
           (_) async => <HearthstoneCard>[
             HearthstoneCard(cardId: '1'),
             HearthstoneCard(cardId: '2'),
